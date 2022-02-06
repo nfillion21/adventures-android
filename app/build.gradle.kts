@@ -1,22 +1,17 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
-    //ConfigData.compileSdkVersion
-    compileSdkVersion(ConfigData.compileSdkVersion)
+    compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         applicationId = "pgm.poolp.adventures"
-        /*
-        minSdk ConfigData.minSdkVersion
-        targetSdk ConfigData.targetSdkVersion
-        versionCode ConfigData.versionCode
-        versionName ConfigData.versionName
-        */
-        minSdkVersion(ConfigData.minSdkVersion)
-        targetSdkVersion(ConfigData.targetSdkVersion)
+        minSdk = ConfigData.minSdkVersion
+        targetSdk = ConfigData.targetSdkVersion
         versionCode = ConfigData.versionCode
         versionName = ConfigData.versionName
 
@@ -65,18 +60,25 @@ android {
 
 dependencies {
 
-    implementation(Deps.coreAndroidX)
+    implementation(Dependencies.coreAndroidX)
 
-    implementation(Deps.uiCompose)
-    implementation (Deps.materialCompose)
-    implementation (Deps.uiToolingPreviewCompose)
-    androidTestImplementation (Deps.uiTestJUnit4Compose)
-    debugImplementation (Deps.uiToolingCompose)
+    implementation(Dependencies.uiCompose)
+    implementation (Dependencies.materialCompose)
+    implementation (Dependencies.uiToolingPreviewCompose)
+    androidTestImplementation (Dependencies.uiTestJUnit4Compose)
+    debugImplementation (Dependencies.uiToolingCompose)
 
-    implementation (Deps.lifeCycleRuntimeAndroidX)
-    implementation (Deps.activityCompose)
-    testImplementation (Deps.junit)
+    implementation (Dependencies.lifeCycleRuntimeAndroidX)
+    implementation (Dependencies.activityCompose)
+    testImplementation (Dependencies.junit)
 
-    androidTestImplementation (Deps.junitAndroidX)
-    debugImplementation (Deps.expressoAndroidX)
+    androidTestImplementation (Dependencies.junitAndroidX)
+    debugImplementation (Dependencies.expressoAndroidX)
+
+    implementation (Dependencies.hiltAndroid)
+    kapt(Dependencies.hiltAndroidCompiler)
+
+    implementation (Dependencies.roomRuntine)
+    annotationProcessor (Dependencies.roomCompiler)
+    kapt(Dependencies.roomCompiler)
 }
