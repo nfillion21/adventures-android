@@ -5,7 +5,7 @@ object Versions {
 
     const val composeVersion = "1.0.5"
     const val coreAndroidX = "1.7.0"
-    const val lifeCycleRuntinAndroidX = "2.3.1"
+    const val lifecycleAndroidX = "2.3.1"
     const val activityCompose = "1.3.1"
     const val junit = "4.13.2"
     const val junitAndroidX = "1.3.3"

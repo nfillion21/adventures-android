@@ -12,8 +12,11 @@ object Dependencies {
     val uiToolingPreviewCompose by lazy { "androidx.compose.ui:ui-tooling-preview:${Versions.composeVersion}" }
     val uiTestJUnit4Compose by lazy { "androidx.compose.ui:ui-test-junit4:${Versions.composeVersion}" }
     val uiToolingCompose by lazy { "androidx.compose.ui:ui-tooling:${Versions.composeVersion}" }
+    val runtimeLiveData by lazy { "androidx.compose.runtime:runtime-livedata:${Versions.composeVersion}"}
 
-    val lifeCycleRuntimeAndroidX by lazy {"androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifeCycleRuntinAndroidX}"}
+    val lifecycleRuntime by lazy {"androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleAndroidX}"}
+    val lifecycleLivedata by lazy {"androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycleAndroidX}"}
+    val lifecycleViewModel by lazy {"androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleAndroidX}"}
 
     // Activity Compose
     val activityCompose by lazy {"androidx.activity:activity-compose:${Versions.activityCompose}"}
@@ -29,7 +32,7 @@ object Dependencies {
 
     // Room
     val roomRuntine by lazy {"androidx.room:room-runtime:${Versions.roomVersion}"}
-    //implementation("androidx.room:room-runtime:$roomVersion")
+    val roomKtx by lazy {"androidx.room:room-ktx:${Versions.roomVersion}"}
     val roomCompiler by lazy {"androidx.room:room-compiler:${Versions.roomVersion}"}
 
     //annotationProcessor("androidx.room:room-compiler:$roomVersion")
@@ -38,11 +41,4 @@ object Dependencies {
     //kapt("androidx.room:room-compiler:$roomVersion")
     // To use Kotlin Symbolic Processing (KSP)
     //ksp("androidx.room:room-compiler:$roomVersion")
-
-    object Room {
-        private const val version = "2.3.0"
-        const val room = "androidx.room:room-ktx:$version"
-        const val roomCompiler = "androidx.room:room-compiler:$version"
-        const val roomTesting = "androidx.room:room-testing:$version"
-    }
 }

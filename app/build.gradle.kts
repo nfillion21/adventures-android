@@ -65,10 +65,13 @@ dependencies {
     implementation(Dependencies.uiCompose)
     implementation (Dependencies.materialCompose)
     implementation (Dependencies.uiToolingPreviewCompose)
+    implementation(Dependencies.runtimeLiveData)
     androidTestImplementation (Dependencies.uiTestJUnit4Compose)
     debugImplementation (Dependencies.uiToolingCompose)
 
-    implementation (Dependencies.lifeCycleRuntimeAndroidX)
+    implementation (Dependencies.lifecycleRuntime)
+    implementation (Dependencies.lifecycleLivedata)
+    implementation (Dependencies.lifecycleViewModel)
     implementation (Dependencies.activityCompose)
     testImplementation (Dependencies.junit)
 
@@ -79,6 +82,7 @@ dependencies {
     kapt(Dependencies.hiltAndroidCompiler)
 
     implementation (Dependencies.roomRuntine)
+    implementation (Dependencies.roomKtx)
     annotationProcessor (Dependencies.roomCompiler)
     kapt(Dependencies.roomCompiler)
 }
