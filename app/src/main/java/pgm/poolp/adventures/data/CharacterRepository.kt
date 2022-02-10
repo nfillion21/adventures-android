@@ -10,4 +10,5 @@ class CharacterRepository @Inject constructor(private val characterDao: Characte
     // Room executes all queries on a separate thread.
     // Observed Flow will notify the observer when the data has changed.
     val allCharacters: Flow<List<Character>> = characterDao.getCharacters()
+    fun allPanelsFromCharacter(characterId:Int) = characterDao.getCharacterPanels(characterId)
 }
