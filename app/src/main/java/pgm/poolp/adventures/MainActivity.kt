@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import dagger.hilt.android.AndroidEntryPoint
 import pgm.poolp.adventures.ui.theme.AdventuresTheme
 import pgm.poolp.adventures.viewmodels.CharacterViewModel
+import pgm.poolp.adventures.viewmodels.IssueViewModel
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -44,7 +45,7 @@ class MainActivity : ComponentActivity() {
 fun Greeting(
     name: String,
     viewModel: CharacterViewModel) {
-    val elements by viewModel.allCharacters.observeAsState(listOf())
+    val elements by viewModel.allPanelsFromCharacter(3).observeAsState(listOf())
     Text(text = "Hello $elements!")
 }
 

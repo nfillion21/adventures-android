@@ -5,13 +5,18 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Character::class/*, Cart::class, PlayerCartCrossRef::class*/], version = 1, exportSchema = false)
+@Database(entities = [
+    Character::class,
+    Book::class,
+    Issue::class,
+    Page::class,
+    Panel::class,
+    CharacterPanelCrossRef::class],
+    version = 1, exportSchema = false)
 abstract class AdventuresRoomDatabase : RoomDatabase() {
 
     abstract fun characterDao(): CharacterDAO
-    /*
-    abstract fun cartDAO(): CartDAO
-     */
+    abstract fun issueDao(): IssueDAO
 
     companion object {
         @Volatile

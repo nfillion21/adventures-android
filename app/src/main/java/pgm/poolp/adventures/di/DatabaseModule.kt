@@ -8,6 +8,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import pgm.poolp.adventures.data.AdventuresRoomDatabase
 import pgm.poolp.adventures.data.CharacterDAO
+import pgm.poolp.adventures.data.IssueDAO
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -23,5 +24,10 @@ class DatabaseModule {
     @Provides
     fun provideCharacterDao(appDatabase: AdventuresRoomDatabase): CharacterDAO {
         return appDatabase.characterDao()
+    }
+
+    @Provides
+    fun provideIssueDao(appDatabase: AdventuresRoomDatabase): IssueDAO {
+        return appDatabase.issueDao()
     }
 }

@@ -14,5 +14,5 @@ class CharacterViewModel @Inject internal constructor(
 ) : ViewModel()
 {
     val allCharacters: LiveData<List<Character>> = characterRepository.allCharacters.asLiveData()
-    val allPanelsFromCharacter: LiveData<List<Character>> = characterRepository.allPanelsFromCharacter.asLiveData()
+    fun allPanelsFromCharacter(characterId:Int) = characterRepository.allPanelsFromCharacter(characterId).asLiveData()
 }
