@@ -1,4 +1,4 @@
-package pgm.poolp.adventures.ui.theme
+package pgm.poolp.adventures.ui
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

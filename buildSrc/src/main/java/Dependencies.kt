@@ -17,6 +17,7 @@ object Dependencies {
     val lifecycleRuntime by lazy {"androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleAndroidX}"}
     val lifecycleLivedata by lazy {"androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycleAndroidX}"}
     val lifecycleViewModel by lazy {"androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleAndroidX}"}
+    val lifecycleViewModelCompose by lazy {"androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.lifecycleAndroidX}"}
 
     // Activity Compose
     val activityCompose by lazy {"androidx.activity:activity-compose:${Versions.activityCompose}"}
@@ -34,6 +35,11 @@ object Dependencies {
     val roomRuntine by lazy {"androidx.room:room-runtime:${Versions.roomVersion}"}
     val roomKtx by lazy {"androidx.room:room-ktx:${Versions.roomVersion}"}
     val roomCompiler by lazy {"androidx.room:room-compiler:${Versions.roomVersion}"}
+
+    val accompanistInsets by lazy {"com.google.accompanist:accompanist-insets:${Versions.accompanistVersion}"}
+
+    val coilCompose by lazy {"io.coil-kt:coil-compose:${Versions.coilVersion}"}
+
 
     //annotationProcessor("androidx.room:room-compiler:$roomVersion")
 

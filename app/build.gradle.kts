@@ -72,6 +72,7 @@ dependencies {
     implementation (Dependencies.lifecycleRuntime)
     implementation (Dependencies.lifecycleLivedata)
     implementation (Dependencies.lifecycleViewModel)
+    implementation (Dependencies.lifecycleViewModelCompose)
     implementation (Dependencies.activityCompose)
     testImplementation (Dependencies.junit)
 
@@ -85,4 +86,7 @@ dependencies {
     implementation (Dependencies.roomKtx)
     annotationProcessor (Dependencies.roomCompiler)
     kapt(Dependencies.roomCompiler)
+
+    implementation (Dependencies.accompanistInsets)
+    implementation (Dependencies.coilCompose)
 }
