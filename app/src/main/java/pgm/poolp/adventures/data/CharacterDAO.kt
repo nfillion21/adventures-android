@@ -23,7 +23,6 @@ interface CharacterDAO {
     )
     fun getCharacterPanels(characterId:Int): Flow<List<CharacterPanel>>
 
-    data class CharacterPanel(val book: Int, val issue: Int, val page:Int, val panel:Int)
     //@RawQuery(observedEntities = [Character::class])
     //LiveData<List<Character>> getCharacters(SupportSQLiteQuery query);
 

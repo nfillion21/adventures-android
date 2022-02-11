@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.ProvideWindowInsets
 import dagger.hilt.android.AndroidEntryPoint
 import pgm.poolp.adventures.ui.AdventuresTheme
@@ -90,6 +91,7 @@ fun MainScreen(/*onExploreItemClicked: OnExploreItemClicked, onDateSelectionClic
                 modifier = Modifier.alpha(splashAlpha),
                 onTimeout = { transitionState.targetState = SplashState.Completed }
             )
+
             MainContent(
                 modifier = Modifier.alpha(contentAlpha),
                 topPadding = contentTopPadding
@@ -118,23 +120,3 @@ private fun MainContent(
     }
 }
 enum class SplashState { Shown, Completed }
-
-/*
-@Composable
-fun Greeting(
-    name: String,
-    viewModel: CharacterViewModel) {
-    val elements by viewModel.allPanelsFromCharacter(3).observeAsState(listOf())
-    Text(text = "Hello $elements!")
-}
- */
-
-/*
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    AdventuresTheme {
-        Greeting("Android")
-    }
-}
-*/

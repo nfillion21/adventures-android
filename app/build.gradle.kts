@@ -82,6 +82,8 @@ dependencies {
     implementation (Dependencies.hiltAndroid)
     kapt(Dependencies.hiltAndroidCompiler)
 
+    implementation (Dependencies.hiltNavigationCompose)
+
     implementation (Dependencies.roomRuntine)
     implementation (Dependencies.roomKtx)
     annotationProcessor (Dependencies.roomCompiler)

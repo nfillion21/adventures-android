@@ -31,6 +31,8 @@ object Dependencies {
     val hiltAndroid by lazy { "com.google.dagger:hilt-android:${Versions.hiltVersion}" }
     val hiltAndroidCompiler by lazy { "com.google.dagger:hilt-android-compiler:${Versions.hiltVersion}" }
 
+    val hiltNavigationCompose by lazy {"androidx.hilt:hilt-navigation-compose:${Versions.hiltNavigationComposeVersion}"}
+
     // Room
     val roomRuntine by lazy {"androidx.room:room-runtime:${Versions.roomVersion}"}
     val roomKtx by lazy {"androidx.room:room-ktx:${Versions.roomVersion}"}

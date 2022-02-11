@@ -1,30 +1,17 @@
-/*
- * Copyright 2020 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package pgm.poolp.adventures.home
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.statusBarsPadding
 import kotlinx.coroutines.launch
+import pgm.poolp.adventures.viewmodels.CharacterViewModel
 
 //typealias OnExploreItemClicked = (ExploreModel) -> Unit
 
@@ -47,15 +34,15 @@ fun CraneHome(
         }
     ) {
         val scope = rememberCoroutineScope()
+        val characterViewModel: CharacterViewModel = hiltViewModel()
         CraneHomeContent(
             modifier = modifier,
-            //onExploreItemClicked = onExploreItemClicked,
-            //onDateSelectionClicked = onDateSelectionClicked,
             openDrawer = {
                 scope.launch {
                     scaffoldState.drawerState.open()
                 }
-            }
+            },
+            viewModel = characterViewModel
         )
     }
 }
@@ -63,12 +50,11 @@ fun CraneHome(
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CraneHomeContent(
-    //onExploreItemClicked: OnExploreItemClicked,
-    //onDateSelectionClicked: () -> Unit,
+    modifier: Modifier = Modifier,
     openDrawer: () -> Unit,
-    modifier: Modifier = Modifier
+    viewModel: CharacterViewModel
 ) {
-    //val suggestedDestinations by viewModel.suggestedDestinations.observeAsState()
+    val suggestedPanels by viewModel.allPanelsFromCharacter(3).observeAsState()
 
     //val onPeopleChanged: (Int) -> Unit = { viewModel.updatePeople(it) }
     var tabSelected by remember { mutableStateOf(CraneScreen.Fly) }
@@ -91,34 +77,31 @@ fun CraneHomeContent(
         frontLayerContent = {
             when (tabSelected) {
                 CraneScreen.Fly -> {
-                    /*
-                    suggestedDestinations?.let { destinations ->
+                    suggestedPanels?.let { panels ->
                         ExploreSection(
                             title = "Explore Flights by Destination",
-                            exploreList = destinations
+                            exploreList = panels
                             //onItemClicked = onExploreItemClicked
                         )
                     }
-                    */
-                    ExploreSection(
-                        title = "Explore Properties by Destination"
-                        //exploreList = viewModel.hotels
-                        //onItemClicked = onExploreItemClicked
-                    )
                 }
                 CraneScreen.Sleep -> {
-                    ExploreSection(
-                        title = "Explore Properties by Destination"
-                        //exploreList = viewModel.hotels
-                        //onItemClicked = onExploreItemClicked
-                    )
+                    suggestedPanels?.let { panels ->
+                        ExploreSection(
+                            title = "Explore Flights by Destination",
+                            exploreList = panels
+                            //onItemClicked = onExploreItemClicked
+                        )
+                    }
                 }
                 CraneScreen.Eat -> {
-                    ExploreSection(
-                        title = "Explore Restaurants by Destination"
-                        //exploreList = viewModel.restaurants
-                        //onItemClicked = onExploreItemClicked
-                    )
+                    suggestedPanels?.let { panels ->
+                        ExploreSection(
+                            title = "Explore Flights by Destination",
+                            exploreList = panels
+                            //onItemClicked = onExploreItemClicked
+                        )
+                    }
                 }
             }
         }

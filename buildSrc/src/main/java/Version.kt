@@ -12,6 +12,7 @@ object Versions {
     const val expressoAndroidX = "3.4.0"
 
     const val hiltVersion = "2.38.1"
+    const val hiltNavigationComposeVersion = "1.0.0"
     const val roomVersion = "2.4.1"
 
     const val accompanistVersion = "0.22.1-rc"

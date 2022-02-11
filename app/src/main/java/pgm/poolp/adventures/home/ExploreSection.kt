@@ -1,19 +1,3 @@
-/*
- * Copyright 2020 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package pgm.poolp.adventures.home
 
 import androidx.compose.foundation.Image
@@ -38,7 +22,7 @@ import coil.compose.ImagePainter.State.Loading
 import coil.compose.rememberImagePainter
 import com.google.accompanist.insets.navigationBarsHeight
 import pgm.poolp.adventures.R
-import pgm.poolp.adventures.data.ExploreModel
+import pgm.poolp.adventures.data.CharacterPanel
 import pgm.poolp.adventures.ui.BottomSheetShape
 import pgm.poolp.adventures.ui.crane_caption
 import pgm.poolp.adventures.ui.crane_divider_color
@@ -46,8 +30,8 @@ import pgm.poolp.adventures.ui.crane_divider_color
 @Composable
 fun ExploreSection(
     modifier: Modifier = Modifier,
-    title: String
-    //exploreList: List<ExploreModel>
+    title: String,
+    exploreList: List<CharacterPanel>
     //onItemClicked: OnExploreItemClicked
 ) {
     Surface(modifier = modifier.fillMaxSize(), color = Color.White, shape = BottomSheetShape) {
@@ -60,7 +44,6 @@ fun ExploreSection(
             LazyColumn(
                 modifier = Modifier.weight(1f),
             ) {
-                /*
                 items(exploreList) { exploreItem ->
                     Column(Modifier.fillParentMaxWidth()) {
                         ExploreItem(
@@ -71,7 +54,6 @@ fun ExploreSection(
                         Divider(color = crane_divider_color)
                     }
                 }
-                */
                 item {
                     Spacer(modifier = Modifier.navigationBarsHeight())
                 }
@@ -84,7 +66,7 @@ fun ExploreSection(
 @Composable
 private fun ExploreItem(
     modifier: Modifier = Modifier,
-    item: ExploreModel
+    item: CharacterPanel
     //onItemClicked: OnExploreItemClicked
 ) {
     Row(
@@ -95,7 +77,8 @@ private fun ExploreItem(
         ExploreImageContainer {
             Box {
                 val painter = rememberImagePainter(
-                    data = item.imageUrl,
+                    //data = item.imageUrl,
+                    data = "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop",
                     builder = {
                         crossfade(true)
                     }
@@ -121,12 +104,14 @@ private fun ExploreItem(
         Spacer(Modifier.width(24.dp))
         Column {
             Text(
-                text = item.city.nameToDisplay,
+                //text = item.city.nameToDisplay,
+                text = item.book.toString(),
                 style = MaterialTheme.typography.h6
             )
             Spacer(Modifier.height(8.dp))
             Text(
-                text = item.description,
+                //text = item.description,
+                text = item.issue.toString(),
                 style = MaterialTheme.typography.caption.copy(color = crane_caption)
             )
         }

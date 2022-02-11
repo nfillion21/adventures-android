@@ -16,7 +16,6 @@ import androidx.room.RoomDatabase
 abstract class AdventuresRoomDatabase : RoomDatabase() {
 
     abstract fun characterDao(): CharacterDAO
-    abstract fun issueDao(): IssueDAO
 
     companion object {
         @Volatile
