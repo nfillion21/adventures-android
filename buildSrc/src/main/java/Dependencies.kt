@@ -42,6 +42,8 @@ object Dependencies {
 
     val coilCompose by lazy {"io.coil-kt:coil-compose:${Versions.coilVersion}"}
 
+    val appCompat by lazy {"androidx.appcompat:appcompat:${Versions.appCompat}"}
+
 
     //annotationProcessor("androidx.room:room-compiler:$roomVersion")
 

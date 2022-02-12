@@ -17,4 +17,5 @@ object Versions {
 
     const val accompanistVersion = "0.22.1-rc"
     const val coilVersion = "1.4.0"
+    const val appCompat = "1.4.1"
 }

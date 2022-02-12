@@ -44,7 +44,7 @@ fun CraneDrawer(modifier: Modifier = Modifier) {
         )
         for (screen in screens) {
             Spacer(Modifier.height(24.dp))
-            Text(text = screen, style = MaterialTheme.typography.h4)
+            Text(text = screen, style = MaterialTheme.typography.h3)
         }
     }
 }

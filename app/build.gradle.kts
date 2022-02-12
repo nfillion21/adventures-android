@@ -91,4 +91,6 @@ dependencies {
 
     implementation (Dependencies.accompanistInsets)
     implementation (Dependencies.coilCompose)
+
+    implementation (Dependencies.appCompat)
 }
