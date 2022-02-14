@@ -24,6 +24,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -33,11 +35,15 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.navigationBarsPadding
 import pgm.poolp.adventures.R
 import pgm.poolp.adventures.ui.AdventuresTheme
+import pgm.poolp.adventures.viewmodels.CharacterViewModel
 
 private val screens = listOf("Michaelangelo", "My Trips", "Saved Trips", "Price Alerts", "My Account","Find Trips", "My Trips", "Saved Trips", "Price Alerts", "My Account","Find Trips", "My Trips", "Saved Trips", "Price Alerts", "My Account","Find Trips", "My Trips", "Saved Trips", "Price Alerts", "My Account")
 
 @Composable
-fun CraneDrawer(modifier: Modifier = Modifier) {
+fun CraneDrawer(modifier: Modifier,
+        viewModel: CharacterViewModel
+) {
+    val suggestedCharacters by viewModel.allCharacters.observeAsState()
     LazyColumn(
         modifier = modifier
             .padding(top = 48.dp)
@@ -56,26 +62,31 @@ fun CraneDrawer(modifier: Modifier = Modifier) {
 
             Spacer(modifier = Modifier.height(16.dp))
         }
-        items(screens) { screen ->
-            Text(
-                text = screen,
-                style = MaterialTheme.typography.h5,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable(onClick = {/*todo*/})
-                    //.padding(top = 12.dp, bottom = 12.dp)
-                    .padding(
-                        start = 16.dp,
-                        top = 8.dp,
-                        end = 16.dp,
-                        bottom = 8.dp
-                    )
-                    .wrapContentWidth(Alignment.Start)
-            )
+
+
+        suggestedCharacters?.let { characters ->
+            items(characters) { character ->
+                Text(
+                    text = character.name,
+                    style = MaterialTheme.typography.h5,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable(onClick = {/*todo*/})
+                        //.padding(top = 12.dp, bottom = 12.dp)
+                        .padding(
+                            start = 16.dp,
+                            top = 8.dp,
+                            end = 16.dp,
+                            bottom = 8.dp
+                        )
+                        .wrapContentWidth(Alignment.Start)
+                )
+            }
         }
     }
 }
 
+/*
 @Preview
 @Composable
 fun CraneDrawerPreview() {
@@ -83,3 +94,4 @@ fun CraneDrawerPreview() {
         CraneDrawer()
     }
 }
+*/

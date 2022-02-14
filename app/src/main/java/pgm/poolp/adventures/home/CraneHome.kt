@@ -6,6 +6,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -26,15 +27,17 @@ fun CraneHome(
     modifier: Modifier = Modifier
 ) {
     val scaffoldState = rememberScaffoldState()
+    val characterViewModel: CharacterViewModel = hiltViewModel()
     Scaffold(
         scaffoldState = scaffoldState,
         modifier = Modifier.statusBarsPadding(),
         drawerContent = {
-            CraneDrawer()
+            CraneDrawer(
+                modifier = modifier,
+                viewModel = characterViewModel)
         }
     ) {
         val scope = rememberCoroutineScope()
-        val characterViewModel: CharacterViewModel = hiltViewModel()
         CraneHomeContent(
             modifier = modifier,
             openDrawer = {
