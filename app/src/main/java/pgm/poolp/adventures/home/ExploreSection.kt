@@ -1,6 +1,7 @@
 package pgm.poolp.adventures.home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,13 +11,14 @@ import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.ImagePainter.State.Loading
 import coil.compose.rememberImagePainter
@@ -32,8 +34,8 @@ fun ExploreSection(
     modifier: Modifier = Modifier,
     title: String,
     exploreList: List<CharacterPanel>,
-    onItemClicked: (CharacterPanel) -> Unit
 ) {
+
     Surface(modifier = modifier.fillMaxSize(), color = Color.White, shape = BottomSheetShape) {
         Column(modifier = Modifier.padding(start = 24.dp, top = 20.dp, end = 24.dp)) {
             Text(
@@ -49,7 +51,6 @@ fun ExploreSection(
                         ExploreItem(
                             modifier = Modifier.fillParentMaxWidth(),
                             item = exploreItem,
-                            onItemClicked = onItemClicked
                         )
                         Divider(color = crane_divider_color)
                     }
@@ -66,12 +67,17 @@ fun ExploreSection(
 @Composable
 private fun ExploreItem(
     modifier: Modifier = Modifier,
-    item: CharacterPanel,
-    onItemClicked: (CharacterPanel) -> Unit
+    item: CharacterPanel
 ) {
+    var openDialog = remember { mutableStateOf(false) }
+    val characterPanel = CharacterPanel(1,1,1,1)
+    var mutableCharacterPanel by remember { mutableStateOf(characterPanel) }
+
     Row(
         modifier = modifier
-            .clickable { onItemClicked(item) }
+            .clickable {
+                openDialog.value = true
+                mutableCharacterPanel = item }
             .padding(top = 12.dp, bottom = 12.dp)
     ) {
         ExploreImageContainer {
@@ -122,6 +128,41 @@ private fun ExploreItem(
                         "Panel #" + String.format("%02d", item.panel),
                 style = MaterialTheme.typography.caption.copy(color = crane_caption)
             )
+        }
+    }
+
+    if (openDialog.value) {
+        Dialog(onDismissRequest = { openDialog.value = false }) {
+
+            Box(Modifier.clickable { openDialog.value = false }) {
+                val painter = rememberImagePainter(
+                    data = "https://www.ug-data.xyz/adventures/" +
+                            String.format("%02d", mutableCharacterPanel.book) + "_" +
+                            String.format("%02d", mutableCharacterPanel.issue) + "_" +
+                            String.format("%02d", mutableCharacterPanel.page) + "_" +
+                            String.format("%02d", mutableCharacterPanel.panel),
+                    builder = {
+                        crossfade(true)
+                    }
+                )
+                Image(
+                    painter = painter,
+                    contentDescription = null,
+                    //contentScale = ContentScale.FillHeight
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier.fillMaxSize()
+                )
+
+                if (painter.state is Loading) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_crane_logo),
+                        contentDescription = null, //modifier = Modifier.fillMaxSize()
+                        modifier = Modifier
+                            .size(36.dp)
+                            .align(Alignment.Center),
+                    )
+                }
+            }
         }
     }
 }
