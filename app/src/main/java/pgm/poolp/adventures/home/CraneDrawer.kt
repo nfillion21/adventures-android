@@ -17,12 +17,14 @@
 package pgm.poolp.adventures.home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -38,11 +40,16 @@ private val screens = listOf("Michaelangelo", "My Trips", "Saved Trips", "Price 
 fun CraneDrawer(modifier: Modifier = Modifier) {
     LazyColumn(
         modifier = modifier
-            .padding(start = 24.dp, top = 48.dp)
+            .padding(top = 48.dp)
             .navigationBarsPadding()
     ) {
         item {
             Image(
+                modifier = Modifier.
+                padding(
+                    start = 16.dp,
+                    end = 16.dp,
+                    bottom = 8.dp),
                 painter = painterResource(R.drawable.ic_crane_drawer),
                 contentDescription = stringResource(R.string.cd_drawer)
             )
@@ -51,9 +58,19 @@ fun CraneDrawer(modifier: Modifier = Modifier) {
         }
         items(screens) { screen ->
             Text(
-                modifier = Modifier.padding(top = 12.dp, bottom = 12.dp),
                 text = screen,
                 style = MaterialTheme.typography.h5,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable(onClick = {/*todo*/})
+                    //.padding(top = 12.dp, bottom = 12.dp)
+                    .padding(
+                        start = 16.dp,
+                        top = 8.dp,
+                        end = 16.dp,
+                        bottom = 8.dp
+                    )
+                    .wrapContentWidth(Alignment.Start)
             )
         }
     }
