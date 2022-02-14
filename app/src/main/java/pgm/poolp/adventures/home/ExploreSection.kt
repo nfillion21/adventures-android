@@ -31,8 +31,8 @@ import pgm.poolp.adventures.ui.crane_divider_color
 fun ExploreSection(
     modifier: Modifier = Modifier,
     title: String,
-    exploreList: List<CharacterPanel>
-    //onItemClicked: OnExploreItemClicked
+    exploreList: List<CharacterPanel>,
+    onItemClicked: (CharacterPanel) -> Unit
 ) {
     Surface(modifier = modifier.fillMaxSize(), color = Color.White, shape = BottomSheetShape) {
         Column(modifier = Modifier.padding(start = 24.dp, top = 20.dp, end = 24.dp)) {
@@ -48,8 +48,8 @@ fun ExploreSection(
                     Column(Modifier.fillParentMaxWidth()) {
                         ExploreItem(
                             modifier = Modifier.fillParentMaxWidth(),
-                            item = exploreItem
-                            //onItemClicked = onItemClicked
+                            item = exploreItem,
+                            onItemClicked = onItemClicked
                         )
                         Divider(color = crane_divider_color)
                     }
@@ -66,12 +66,12 @@ fun ExploreSection(
 @Composable
 private fun ExploreItem(
     modifier: Modifier = Modifier,
-    item: CharacterPanel
-    //onItemClicked: OnExploreItemClicked
+    item: CharacterPanel,
+    onItemClicked: (CharacterPanel) -> Unit
 ) {
     Row(
         modifier = modifier
-            .clickable { /*onItemClicked(item)*/ }
+            .clickable { onItemClicked(item) }
             .padding(top = 12.dp, bottom = 12.dp)
     ) {
         ExploreImageContainer {

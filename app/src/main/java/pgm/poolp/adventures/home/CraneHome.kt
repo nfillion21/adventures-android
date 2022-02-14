@@ -1,19 +1,28 @@
 package pgm.poolp.adventures.home
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.ImagePainter
+import coil.compose.rememberImagePainter
 import com.google.accompanist.insets.statusBarsPadding
 import kotlinx.coroutines.launch
+import pgm.poolp.adventures.R
+import pgm.poolp.adventures.data.CharacterPanel
 import pgm.poolp.adventures.viewmodels.CharacterViewModel
 
-//typealias OnExploreItemClicked = (ExploreModel) -> Unit
+//typealias OnCharacterPanelClicked = (CharacterPanel) -> Unit
 
 enum class CraneScreen {
     Fly, Sleep, Eat
@@ -21,12 +30,13 @@ enum class CraneScreen {
 
 @Composable
 fun CraneHome(
-    //onExploreItemClicked: OnExploreItemClicked,
-    //onDateSelectionClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val scaffoldState = rememberScaffoldState()
-    var mutableCharacterId by remember { mutableStateOf(1)}
+    var mutableCharacterId by remember { mutableStateOf(-1)}
+    var openDialog = remember { mutableStateOf(false) }
+    val characterPanel = CharacterPanel(1,1,1,1)
+    var mutableCharacterPanel by remember { mutableStateOf(characterPanel)}
     val scope = rememberCoroutineScope()
 
     Scaffold(
@@ -44,7 +54,6 @@ fun CraneHome(
             )
         }
     ) {
-        val scope = rememberCoroutineScope()
         CraneHomeContent(
             modifier = modifier,
             openDrawer = {
@@ -52,18 +61,67 @@ fun CraneHome(
                     scaffoldState.drawerState.open()
                 }
             },
-            characterId = mutableCharacterId
+            characterId = mutableCharacterId,
+            onCharacterPanelClicked = {
+                openDialog.value = true
+                mutableCharacterPanel = it
+            }
         )
     }
 
-    /*
-    val openPlayerDetail = { newPlayerId: Int ->
-        // In order to discard duplicated navigation events, we check the Lifecycle
-        if (from.lifecycleIsResumed()) {
-            navController.navigate("${MainRoutes.PLAYER_DETAIL_ROUTE}/$newPlayerId")
+    val dialogWidth = 200.dp
+    val dialogHeight = 50.dp
+
+    if (openDialog.value) {
+        Dialog(onDismissRequest = { openDialog.value = false }) {
+            Box(Modifier.size(400.dp,400.dp)) {
+                val painter = rememberImagePainter(
+                    data = "https://www.ug-data.xyz/adventures/" +
+                            String.format("%02d", mutableCharacterPanel.book) + "_" +
+                            String.format("%02d", mutableCharacterPanel.issue) + "_" +
+                            String.format("%02d", mutableCharacterPanel.page) + "_" +
+                            String.format("%02d", mutableCharacterPanel.panel),
+                    builder = {
+                        crossfade(true)
+                    }
+                )
+                Image(
+                    painter = painter,
+                    contentDescription = null,
+                    //contentScale = ContentScale.FillHeight
+                    modifier = Modifier.fillMaxSize()
+                )
+
+                if (painter.state is ImagePainter.State.Loading) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_crane_logo),
+                        contentDescription = null,
+                        //modifier = Modifier
+                            //.size(36.dp)
+                            //.align(Alignment.Center),
+                    )
+                }
+            }
         }
     }
-    */
+}
+
+
+@Composable
+fun PanelDialog(
+    characterPanel: CharacterPanel,
+    onDismissRequest : () -> Unit
+) {
+    val dialogWidth = 200.dp
+    val dialogHeight = 50.dp
+
+    Dialog(onDismissRequest = {onDismissRequest}) {
+        // Draw a rectangle shape with rounded corners inside the dialog
+        Box(
+            Modifier
+                .size(dialogWidth, dialogHeight)
+                .background(Color.White))
+    }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -71,7 +129,8 @@ fun CraneHome(
 fun CraneHomeContent(
     modifier: Modifier = Modifier,
     openDrawer: () -> Unit,
-    characterId: Int
+    characterId: Int,
+    onCharacterPanelClicked: (CharacterPanel) -> Unit
 ) {
 
     val characterViewModel: CharacterViewModel = hiltViewModel()
@@ -101,8 +160,8 @@ fun CraneHomeContent(
                     suggestedPanels?.let { panels ->
                         ExploreSection(
                             title = "Explore Flights by Destination",
-                            exploreList = panels
-                            //onItemClicked = onExploreItemClicked
+                            exploreList = panels,
+                            onItemClicked = onCharacterPanelClicked
                         )
                     }
                 }
@@ -110,7 +169,8 @@ fun CraneHomeContent(
                     suggestedPanels?.let { panels ->
                         ExploreSection(
                             title = "Explore Flights by Destination",
-                            exploreList = panels
+                            exploreList = panels,
+                            onItemClicked = onCharacterPanelClicked
                             //onItemClicked = onExploreItemClicked
                         )
                     }
@@ -119,7 +179,9 @@ fun CraneHomeContent(
                     suggestedPanels?.let { panels ->
                         ExploreSection(
                             title = "Explore Flights by Destination",
-                            exploreList = panels
+                            exploreList = panels,
+
+                            onItemClicked = onCharacterPanelClicked
                             //onItemClicked = onExploreItemClicked
                         )
                     }
@@ -173,19 +235,3 @@ private fun SearchContent(
     }
 
 }
-
-data class FlySearchContentUpdates(
-    val onPeopleChanged: (Int) -> Unit,
-    val onToDestinationChanged: (String) -> Unit,
-    val onDateSelectionClicked: () -> Unit
-)
-
-data class SleepSearchContentUpdates(
-    val onPeopleChanged: (Int) -> Unit,
-    val onDateSelectionClicked: () -> Unit
-)
-
-data class EatSearchContentUpdates(
-    val onPeopleChanged: (Int) -> Unit,
-    val onDateSelectionClicked: () -> Unit
-)

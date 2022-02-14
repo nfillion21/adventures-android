@@ -3,27 +3,28 @@ package pgm.poolp.adventures.home
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.annotation.VisibleForTesting
+import androidx.appcompat.app.AlertDialog
 import androidx.compose.animation.core.*
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.core.view.WindowCompat
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.ProvideWindowInsets
 import dagger.hilt.android.AndroidEntryPoint
+import pgm.poolp.adventures.data.CharacterPanel
 import pgm.poolp.adventures.ui.AdventuresTheme
-import pgm.poolp.adventures.viewmodels.CharacterViewModel
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -54,7 +55,6 @@ class MainActivity : ComponentActivity() {
             ProvideWindowInsets {
                 AdventuresTheme {
                     MainScreen(
-                        //onExploreItemClicked = { launchDetailsActivity(context = this, item = it) },
                         //onDateSelectionClicked = { launchCalendarActivity(this) }
                     )
                 }
@@ -66,7 +66,7 @@ class MainActivity : ComponentActivity() {
 
 @VisibleForTesting
 @Composable
-fun MainScreen(/*onExploreItemClicked: OnExploreItemClicked, onDateSelectionClicked: () -> Unit*/) {
+fun MainScreen() {
     Surface(color = MaterialTheme.colors.primary) {
         val transitionState = remember { MutableTransitionState(SplashState.Shown) }
         val transition = updateTransition(transitionState, label = "splashTransition")
@@ -94,8 +94,7 @@ fun MainScreen(/*onExploreItemClicked: OnExploreItemClicked, onDateSelectionClic
 
             MainContent(
                 modifier = Modifier.alpha(contentAlpha),
-                topPadding = contentTopPadding
-                //onExploreItemClicked = onExploreItemClicked,
+                topPadding = contentTopPadding,
                 //onDateSelectionClicked = onDateSelectionClicked
             )
         }
@@ -107,16 +106,14 @@ fun MainScreen(/*onExploreItemClicked: OnExploreItemClicked, onDateSelectionClic
 private fun MainContent(
     modifier: Modifier = Modifier,
     topPadding: Dp = 0.dp
-    //onExploreItemClicked: OnExploreItemClicked,
-    //onDateSelectionClicked: () -> Unit
 ) {
     Column(modifier = modifier) {
         Spacer(Modifier.padding(top = topPadding))
         CraneHome(
-            modifier = modifier,
-            //onExploreItemClicked = onExploreItemClicked,
-            //onDateSelectionClicked = onDateSelectionClicked
+            modifier = modifier
         )
     }
 }
-enum class SplashState { Shown, Completed }
+
+
+    enum class SplashState { Shown, Completed }
