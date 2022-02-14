@@ -78,7 +78,12 @@ private fun ExploreItem(
             Box {
                 val painter = rememberImagePainter(
                     //data = item.imageUrl,
-                    data = "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop",
+                    //val str = item.book.to
+                    data = "https://www.ug-data.xyz/adventures/" +
+                            String.format("%02d", item.book) + "_" +
+                            String.format("%02d", item.issue) + "_" +
+                            String.format("%02d", item.page) + "_" +
+                            String.format("%02d", item.panel),
                     builder = {
                         crossfade(true)
                     }
@@ -105,13 +110,16 @@ private fun ExploreItem(
         Column {
             Text(
                 //text = item.city.nameToDisplay,
-                text = item.book.toString(),
+                text = "Book " + String.format("%02d", item.book) + "/16",
                 style = MaterialTheme.typography.h6
             )
             Spacer(Modifier.height(8.dp))
             Text(
                 //text = item.description,
-                text = item.issue.toString(),
+                //text = item.issue.toString(),
+                text = "Issue #" + String.format("%02d", item.issue) + ", " +
+                        "Page #" + String.format("%02d", item.page) + ", " +
+                        "Panel #" + String.format("%02d", item.panel),
                 style = MaterialTheme.typography.caption.copy(color = crane_caption)
             )
         }

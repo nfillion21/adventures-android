@@ -10,7 +10,11 @@ interface CharacterDAO {
 
     // The flow always holds/caches latest version of data. Notifies its observers when the
     // data has changed.
-    @Query("select * from characters")
+    @Query(
+        "select c.id, c.name from characters c " +
+                "order by (" +
+                "select count(*) " +
+                "from characters_panels where character_id=c.id) desc;")
     fun getCharacters(): Flow<List<Character>>
 
     @Query("select pan.number as panel, pag.number as page, i.number as issue, b.volume as book from characters_panels can_pan " +
