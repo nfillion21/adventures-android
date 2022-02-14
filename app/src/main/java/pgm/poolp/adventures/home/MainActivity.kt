@@ -113,7 +113,7 @@ private fun MainContent(
     Column(modifier = modifier) {
         Spacer(Modifier.padding(top = topPadding))
         CraneHome(
-            modifier = modifier
+            modifier = modifier,
             //onExploreItemClicked = onExploreItemClicked,
             //onDateSelectionClicked = onDateSelectionClicked
         )

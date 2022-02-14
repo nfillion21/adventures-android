@@ -6,7 +6,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -27,14 +26,22 @@ fun CraneHome(
     modifier: Modifier = Modifier
 ) {
     val scaffoldState = rememberScaffoldState()
-    val characterViewModel: CharacterViewModel = hiltViewModel()
+    var mutableCharacterId by remember { mutableStateOf(1)}
+    val scope = rememberCoroutineScope()
+
     Scaffold(
         scaffoldState = scaffoldState,
         modifier = Modifier.statusBarsPadding(),
         drawerContent = {
             CraneDrawer(
                 modifier = modifier,
-                viewModel = characterViewModel)
+                selectCharacter = {
+                    mutableCharacterId = it
+                    scope.launch {
+                        scaffoldState.drawerState.close()
+                    }
+                }
+            )
         }
     ) {
         val scope = rememberCoroutineScope()
@@ -45,9 +52,18 @@ fun CraneHome(
                     scaffoldState.drawerState.open()
                 }
             },
-            viewModel = characterViewModel
+            characterId = mutableCharacterId
         )
     }
+
+    /*
+    val openPlayerDetail = { newPlayerId: Int ->
+        // In order to discard duplicated navigation events, we check the Lifecycle
+        if (from.lifecycleIsResumed()) {
+            navController.navigate("${MainRoutes.PLAYER_DETAIL_ROUTE}/$newPlayerId")
+        }
+    }
+    */
 }
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -55,9 +71,11 @@ fun CraneHome(
 fun CraneHomeContent(
     modifier: Modifier = Modifier,
     openDrawer: () -> Unit,
-    viewModel: CharacterViewModel
+    characterId: Int
 ) {
-    val suggestedPanels by viewModel.allPanelsFromCharacter(3).observeAsState()
+
+    val characterViewModel: CharacterViewModel = hiltViewModel()
+    val suggestedPanels by characterViewModel.allPanelsFromCharacter(characterId).observeAsState()
 
     //val onPeopleChanged: (Int) -> Unit = { viewModel.updatePeople(it) }
     var tabSelected by remember { mutableStateOf(CraneScreen.Fly) }

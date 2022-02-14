@@ -1,19 +1,3 @@
-/*
- * Copyright 2020 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package pgm.poolp.adventures.home
 
 import androidx.compose.foundation.Image
@@ -30,20 +14,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import pgm.poolp.adventures.R
-import pgm.poolp.adventures.ui.AdventuresTheme
 import pgm.poolp.adventures.viewmodels.CharacterViewModel
-
-private val screens = listOf("Michaelangelo", "My Trips", "Saved Trips", "Price Alerts", "My Account","Find Trips", "My Trips", "Saved Trips", "Price Alerts", "My Account","Find Trips", "My Trips", "Saved Trips", "Price Alerts", "My Account","Find Trips", "My Trips", "Saved Trips", "Price Alerts", "My Account")
 
 @Composable
 fun CraneDrawer(modifier: Modifier,
-        viewModel: CharacterViewModel
+                selectCharacter: (Int) -> Unit,
 ) {
-    val suggestedCharacters by viewModel.allCharacters.observeAsState()
+    val characterViewModel: CharacterViewModel = hiltViewModel()
+    val suggestedCharacters by characterViewModel.allCharacters.observeAsState()
     LazyColumn(
         modifier = modifier
             .padding(top = 48.dp)
@@ -71,7 +53,7 @@ fun CraneDrawer(modifier: Modifier,
                     style = MaterialTheme.typography.h5,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable(onClick = {/*todo*/})
+                        .clickable(onClick = {selectCharacter(character.id)})
                         //.padding(top = 12.dp, bottom = 12.dp)
                         .padding(
                             start = 16.dp,
