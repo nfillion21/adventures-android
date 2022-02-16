@@ -74,7 +74,6 @@ fun CraneHomeContent(
     val characterViewModel: CharacterViewModel = hiltViewModel()
     val suggestedPanels by characterViewModel.allPanelsFromCharacter(characterId).observeAsState()
 
-    //val onPeopleChanged: (Int) -> Unit = { viewModel.updatePeople(it) }
     var tabSelected by remember { mutableStateOf(CraneScreen.Fly) }
 
     BackdropScaffold(
@@ -85,39 +84,18 @@ fun CraneHomeContent(
             HomeTabBar(openDrawer, tabSelected, onTabSelected = { tabSelected = it })
         },
         backLayerContent = {
+            /*
             SearchContent(
                 tabSelected
-                //onPeopleChanged
-                //onDateSelectionClicked,
-                //onExploreItemClicked
             )
+            */
         },
         frontLayerContent = {
-            when (tabSelected) {
-                CraneScreen.Fly -> {
-                    suggestedPanels?.let { panels ->
-                        ExploreSection(
-                            title = "Explore Flights by Destination",
-                            exploreList = panels
-                        )
-                    }
-                }
-                CraneScreen.Sleep -> {
-                    suggestedPanels?.let { panels ->
-                        ExploreSection(
-                            title = "Explore Flights by Destination",
-                            exploreList = panels
-                        )
-                    }
-                }
-                CraneScreen.Eat -> {
-                    suggestedPanels?.let { panels ->
-                        ExploreSection(
-                            title = "Explore Flights by Destination",
-                            exploreList = panels
-                        )
-                    }
-                }
+            suggestedPanels?.let { panels ->
+                ExploreSection(
+                    title = "Explore pictures of this character",
+                    exploreList = panels
+                )
             }
         }
     )

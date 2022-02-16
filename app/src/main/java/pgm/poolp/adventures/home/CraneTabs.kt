@@ -46,11 +46,13 @@ fun CraneTabBar(
                 contentDescription = null
             )
         }
+        /*
         children(
             Modifier
                 .weight(1f)
                 .align(Alignment.CenterVertically)
         )
+        */
     }
 }
 
