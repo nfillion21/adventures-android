@@ -85,7 +85,7 @@ private fun ExploreItem(
                 val painter = rememberImagePainter(
                     //data = item.imageUrl,
                     //val str = item.book.to
-                    data = "https://www.ug-data.xyz/adventures/" +
+                    data = "https://www.poolp.xyz/adventures/" +
                             String.format("%02d", item.book) + "_" +
                             String.format("%02d", item.issue) + "_" +
                             String.format("%02d", item.page) + "_" +
@@ -136,7 +136,7 @@ private fun ExploreItem(
 
             Box(Modifier.clickable { openDialog.value = false }) {
                 val painter = rememberImagePainter(
-                    data = "https://www.ug-data.xyz/adventures/" +
+                    data = "https://www.poolp.xyz/adventures/" +
                             String.format("%02d", mutableCharacterPanel.book) + "_" +
                             String.format("%02d", mutableCharacterPanel.issue) + "_" +
                             String.format("%02d", mutableCharacterPanel.page) + "_" +
